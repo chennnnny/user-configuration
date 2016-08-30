@@ -1,0 +1,266 @@
+""------------------------------------------------------------------------------
+"" Plugins context
+"" Author: chenyao
+""
+""------------------------------------------------------------------------------
+
+""------------------------------------------------------------------------------
+"" ctags
+""------------------------------------------------------------------------------
+"" When a tag file name starts with "./", the '.' is replaced with the path of
+"   the current file.
+"" The idea of using "./" is that you can define which tag file is searched first: 
+"   In the current directory ("tags,./tags") or 
+"   in the directory of the current file ("./tags,tags").
+set tags=./tags;
+
+"" add new tags file
+set tags+=$HOME/.vim/tags/vc      
+set tags+=$HOME/.vim/tags/crt
+set tags+=$HOME/.vim/tags/atlmfc
+
+"" When on, Vim will change the current working directory whenever you
+"	open a file, switch buffers, delete a buffer or open/close a window.
+"	It will change to the directory containing the file which was opened
+"	or selected.
+"set autochdir
+
+if executable('ctags')
+    nmap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+    imap <C-F12> <ESC>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+endif
+
+""------------------------------------------------------------------------------
+"" cscope
+""------------------------------------------------------------------------------
+if has("cscope")
+    if LINUX()
+        set csprg=/usr/bin/cscope
+    elseif WINDOWS()
+        set csprg=cscope
+    endif
+
+    set cscopequickfix=s-,c-,d-,i-,t-,e- " 使用 QuickFix 窗口来显示
+    set cspc=0  " 路径显示格式
+                "   0 - 整个路径
+                "   1 - 文件名
+                "   2 - 文件路径的最后2个部分
+                "   3 - 文件路径的最后3个部分
+    set csto=0  " 设置cstag命令查找次序：
+                "   0 先找cscope数据库再找标签文件
+                "   1 先找标签文件再找cscope数据库
+    set cst     " 同时查找 cscope 数据库和 tags 文件
+    "" use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+    set cscopetag
+    "" show msg when any other cscope db added
+    set cscopeverbose
+
+    " add any cscope database in current directory
+    if filereadable("cscope.out")
+        silent! execute "cs add cscope.out"
+    " else add the database pointed to by environment variable 
+    elseif $CSCOPE_DB != ""
+        silent! execute "cs add $CSCOPE_DB"
+    endif
+endif
+
+if executable('cscope')
+    nmap <C-F11> :!cscope -R -b<CR><CR><CR>:cs add cscope.out<CR>
+    imap <C-F11> <ESC>:!cscope -R -b<CR><CR><CR>:cs add cscope.out<CR>
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR>
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR>
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR>
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR>
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR>
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR>
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR>
+endif
+
+""------------------------------------------------------------------------------
+"" NERDTree
+""------------------------------------------------------------------------------
+function! PluginNERDTree()
+    let g:NERDTreeWinPos                  ="left"
+    let g:NERDTreeWinSize                 =35
+    let g:NERDTreeShowLineNumbers         =1
+    let g:neocomplcache_enable_at_startup =1 
+    nmap <silent> <Leader>nt :NERDTreeToggle<CR>
+endfunction
+call PluginNERDTree()
+
+""------------------------------------------------------------------------------
+"" WMmanager
+""------------------------------------------------------------------------------
+function! PluginWMmanager()
+    let g:winManagerWindowLayout ='FileExplorer|TagList'
+    let g:winManagerWidth        =35
+    nnoremap <silent> <Leader>m :WMToggle<cr>
+endfunction
+call PluginWMmanager()
+
+""------------------------------------------------------------------------------
+"" TagList
+""------------------------------------------------------------------------------
+function! PluginTaglist()
+    let Tlist_Use_Right_Window    =1  " 在窗口的右边显示
+    let Tlist_Show_One_File       =1  " 只显示当前文件的tags
+    let Tlist_Exit_OnlyWindow     =1  " 如果taglist窗口是最后一个窗口，则退出vim
+    let Tlist_Process_File_Always =1  " 实时更新tags
+    let Tlist_WinWidth            =40 " 设置窗口宽度
+
+    "" 常规模式下输入 tl 调用插件，如果有打开 Tagbar 窗口则先将其关闭
+    nmap tl :Tlist<CR>
+endfunction
+
+
+""------------------------------------------------------------------------------
+"" Tagbar
+""------------------------------------------------------------------------------
+function! PluginTagbar()
+    let g:tagbar_autofocus = 1
+    let g:tagbar_width     = 35
+    nmap tb :TagbarToggle<CR>
+endfunction
+call PluginTagbar()
+
+
+""------------------------------------------------------------------------------
+"" NERDCommenter
+""------------------------------------------------------------------------------
+function! PluginNERDCommenter()
+    nmap <C-C> <leader>cl
+    vmap <C-C> <leader>cl
+    nmap <C-X> <leader>cu
+    vmap <C-X> <leader>cu
+endfunction
+call PluginNERDCommenter()
+
+""------------------------------------------------------------------------------
+"" bufExplorer 
+""------------------------------------------------------------------------------
+let g:bufExplorerDefaultHelp      =0     " Do not show default help
+let g:bufExplorerShowRelativePath =1
+let g:bufExplorerFindActive       =1     " Go to active window after select
+let g:bufExplorerSortBy           ='mru' " Sort by most recently used
+let g:bufExplorerSplitBelow       =1     " Split new window below current.
+let g:bufExplorerSplitRight       =1     " Split right.
+let g:bufExplorerSplitHorzSize    =10    " New split window is n rows high.
+let g:bufExplorerVertSize         =40    " New split window is n columns wide.
+nnoremap <silent> <F3> :BufExplorerHorizontalSplit<cr>
+inoremap <silent> <F3> <Esc>:BufExplorerHorizontalSplit<cr>
+nnoremap <silent> <Leader>e :ToggleBufExplorer<cr>
+
+""------------------------------------------------------------------------------
+"" MiniBufExplorer
+""------------------------------------------------------------------------------
+function! PluginMiniBufExplorer()
+    let g:miniBufExplMapCTabSwitchBufs   =1
+    let g:miniBufExplMapWindowNavVim     =1
+    let g:miniBufExplMapWindowNavArrows  =1
+    let g:miniBufExplModSelTarget        =1
+    let g:miniBufExplForceSyntaxEnable   =1  
+    let g:miniBufExplorerMoreThanOne     =0
+endfunction
+
+""------------------------------------------------------------------------------
+"" quickfix
+""------------------------------------------------------------------------------
+if has('quickfix')
+    nmap <silent> <F4> :botright copen 10<cr>
+    imap <silent> <F4> <Esc>:botright copen 10<cr>
+    nmap <silent> <F6> :cnext<cr><cr>
+    nmap <silent> <F7> :cprev<cr><cr>
+endif
+
+""------------------------------------------------------------------------------
+"" OmniCppComplete
+""------------------------------------------------------------------------------
+function! PluginOmniCppComplete()
+    let OmniCpp_SelectFirstItem     =2   
+    let OmniCpp_DisplayMode         =1   
+    let OmniCpp_NamespaceSearch     =1
+    let OmniCpp_GlobalScopeSearch   =1
+    let OmniCpp_ShowAccess          =1
+    let OmniCpp_ShowPrototypeInAbbr =1 " show function parameters
+    let OmniCpp_MayCompleteDot      =1 " autocomplete after .
+    let OmniCpp_MayCompleteArrow    =1 " autocomplete after ->
+    let OmniCpp_MayCompleteScope    =1 " autocomplete after ::
+    let OmniCpp_DefaultNamespaces   =["std", "_GLIBCXX_STD"]
+    set completeopt=menuone,menu,longest
+
+    " automatically open and close the popup menu / preview window
+    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+endfunction
+
+""------------------------------------------------------------------------------
+"" supertab
+""------------------------------------------------------------------------------
+function! PluginSupertab()
+    let g:SuperTabDefaultCompletionType ="<C-N>"
+endfunction
+call PluginSupertab()
+
+
+""------------------------------------------------------------------------------
+"" syntastic
+""------------------------------------------------------------------------------
+
+
+""------------------------------------------------------------------------------
+"" vim airline
+""------------------------------------------------------------------------------
+function! PluginAirline()
+    let g:airline_theme ='dark'
+    "let g:airline#extensions#tabline#enabled   =1
+    "let g:airline#extensions#syntastic#enabled =1
+
+    "" 设置切换Buffer快捷键
+    nnoremap <C-Tab> :bnext<CR>
+    nnoremap <S-Tab> :bprev<CR>
+
+    let g:airline_left_sep  =''
+    let g:airline_right_sep =''
+    let g:airline_section_z ='%-4.(%l%):%-4.(%c%V%) %4.(%p%%%)'
+
+    let g:airline#extensions#default#layout = [
+                \ [ 'a', 'b', 'c' ],
+                \ [ 'x', 'y', 'z' ]
+                \ ]
+
+    let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+endfunction
+call PluginAirline()
+
+""------------------------------------------------------------------------------
+"" ctrlp
+""------------------------------------------------------------------------------
+function! PluginCtrlP()
+    let g:ctrlp_map = '<M-P>'
+    let g:ctrlp_cmd = 'CtrlP'
+    let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+                \ 'file': '\v\.(exe|so|dll)$',
+                \ 'link': 'some_bad_symbolic_links',
+                \ }
+    let g:ctrlp_by_filename = 1
+endfunction
+call PluginCtrlP()
+
+""------------------------------------------------------------------------------
+"" vim-markdown
+""------------------------------------------------------------------------------
+let g:tabular_loaded           = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_frontmatter = 1
+
+""------------------------------------------------------------------------------
+"" tabular
+""------------------------------------------------------------------------------
+function! PluginTabular()
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:\zs<CR>
+    vmap <Leader>a: :Tabularize /:\zs<CR>
+endfunction
+call PluginTabular()

@@ -1,0 +1,60 @@
+""------------------------------------------------------------------------------
+"" The personal .vimrc.bundle file of gvim or vim
+"" It can work in Windows and Linux
+"" Author: chenyao
+"" Email:  cheny@meizu.com
+""------------------------------------------------------------------------------
+set nocompatible " be iMproved, required
+filetype off     " required
+
+"" Set the runtime path to include Vundle and initialize
+set rtp+=$HOME/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+"" Let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+"" Plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'winmanager'
+Plugin 'a.vim'
+Plugin 'echofunc.vim'
+
+"" Plugin on GitHub repo
+" theme and fonts
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'altercation/vim-colors-solarized'
+
+" programming
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
+Plugin 'kien/ctrlp.vim'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'ervandew/supertab'
+
+"" writing
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+"" vim shell
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/vimshell.vim'
+
+
+function! PluginUnused()
+Plugin 'taglist.vim'
+Plugin 'OmniCppComplete'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'fholgado/minibufexpl.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+endfunction
+
+if filereadable(expand("$HOME/.vimrc.bundle.local"))
+    source $HOME/.vimrc.bundle.local
+endif
+
+call vundle#end()   " required
