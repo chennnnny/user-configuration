@@ -82,7 +82,7 @@ endif
 "" Linux gvim / vim environment
 ""------------------------------------------------------------------------------
 if !WINDOWS()
-    set shell=/bin/sh
+    set shell=/bin/bash
 endif
 
 
@@ -210,6 +210,7 @@ syntax enable     " 允许使用语法高亮功能
 syntax on         " 打开语法高亮
 
 set background=dark    " dark / light  
+set t_Co      =256
 
 if !WINDOWS()
     try
