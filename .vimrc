@@ -264,12 +264,14 @@ nnoremap gk 5k
 nnoremap gh 5h
 nnoremap gl 5l
 
+inoremap <C-E> <C-X><C-E>
+inoremap <C-Y> <C-X><C-Y>
+
 "" change word to uppercase, I love this very much
 imap <C-U> <Esc>gUiwea
 
 "" next window. tab == ctrl-i
 "nmap <silent> <Enter> :wincmd w<CR>
-
 
 nmap <F2> :!start "c:\Program Files (x86)\Mozilla Firefox\firefox.exe" %<CR>
 
