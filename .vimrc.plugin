@@ -212,8 +212,8 @@ call PluginSupertab()
 ""------------------------------------------------------------------------------
 function! PluginAirline()
     let g:airline_theme ='dark'
-    "let g:airline#extensions#tabline#enabled   =1
-    "let g:airline#extensions#syntastic#enabled =1
+    let g:airline#extensions#tabline#enabled   =1
+    let g:airline#extensions#syntastic#enabled =1
 
     "" 设置切换Buffer快捷键
     nnoremap <C-Tab> :bnext<CR>
@@ -253,6 +253,21 @@ call PluginCtrlP()
 let g:tabular_loaded           = 1
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_frontmatter = 1
+
+""------------------------------------------------------------------------------
+"" vim-markdown
+""------------------------------------------------------------------------------
+let g:mkdp_path_to_chrome = "firefox"
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_open = 0
+let g:mkdp_auto_close = 0
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+
+nmap <silent> <F8> <Plug>MarkdownPreview
+imap <silent> <F8> <Plug>MarkdownPreview
+nmap <silent> <F9> <Plug>StopMarkdownPreview
+imap <silent> <F9> <Plug>StopMarkdownPreview
 
 ""------------------------------------------------------------------------------
 "" tabular
