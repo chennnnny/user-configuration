@@ -20,7 +20,7 @@ silent function! OSX()
     return has('macunix')
 endfunction
 silent function! LINUX()
-    return has('unix') && !has('macunix') && !has('win32unix')
+    return has('unix') && !has('macunix')
 endfunction
 silent function! WINDOWS()
     return  (has('win32') || has('win64'))
@@ -197,6 +197,7 @@ set foldlevelstart =99      " 打开文件是默认不折叠代码
 nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 "" 可识别的文本编码格式
+set encoding=utf-8
 set fileencodings =ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,shift-jis 
 set fileencoding  =utf-8    " 新建文件编码
 set termencoding  =locale   " 终端显示编码
@@ -273,7 +274,7 @@ imap <C-U> <Esc>gUiwea
 "" next window. tab == ctrl-i
 "nmap <silent> <Enter> :wincmd w<CR>
 
-nmap <F2> :!start "c:\Program Files (x86)\Mozilla Firefox\firefox.exe" %<CR>
+nmap <F2> :!start "c:\Program Files (x86)\Google\Chrome\Application\chrome.exe" %<CR>
 
 
 ""------------------------------------------------------------------------------
@@ -310,7 +311,7 @@ function! VimrcCreateAndLoadDB()
     endif
 
     if LINUX()
-        silent! execute "!find $PWD -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.java' -o -name '*.py' > tags.files"
+        silent! execute "!find -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.java' -o -name '*.py' > tags.files"
     else
         silent! execute "!dir *.h *.c *.cpp *.java *.py /s /b /a-d > tags.files"
     endif
