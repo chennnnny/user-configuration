@@ -200,8 +200,13 @@ nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 set encoding=utf-8
 set fileencodings =ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,shift-jis 
 set fileencoding  =utf-8    " 新建文件编码
-set termencoding  =locale   " 终端显示编码
+set termencoding  =utf-8    " 终端显示编码
 set fileformats   =unix,dos,mac
+if WINDOWS()
+    set langmenu  =zh_CN.UTF-8
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+endif
 
 
 ""------------------------------------------------------------------------------
