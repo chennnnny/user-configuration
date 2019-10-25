@@ -1,0 +1,45 @@
+[user]
+    name = chenyao4
+    email = chenyao4@kingsoft.com
+[core]
+    autocrlf = true
+    safecrlf = true
+    quotepath = false
+[alias]
+    last = log -1 --stat
+    cp = cherry-pick
+    co = checkout
+    cl = clone
+    ci = commit
+    st = status -sb
+    br = branch
+    unstage = reset HEAD --
+    dc = diff --cached
+    d = difftool
+    gr = log --graph --oneline --decorate
+    lg = log --graph --color --decorate --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Cgreen(%cd) %C(bold blue)<%an>%Cred|' --abbrev-commit
+
+[difftool "sourcetree"]
+	cmd = '' \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+	cmd = "'' "
+	trustExitCode = true
+
+[diff]
+    tool = bc4
+[difftool]
+    prompt = false
+[difftool "bc4"]
+    cmd = BComp.exe \"$LOCAL\" \"$REMOTE\"
+
+[merge]
+    tool = bc4
+[mergetool]
+    prompt = false
+[mergetool "bc4"]
+    cmd = BComp.exe \"$LOCAL\" \"$REMOTE\" \"$BASE\" -o \"$MERGED\"
+    trustexitcode = true
+
+[i18n]
+    commitencoding = utf-8
+    logoutputencoding = utf-8
