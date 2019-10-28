@@ -5,6 +5,7 @@
     autocrlf = true
     safecrlf = true
     quotepath = false
+    excludesfile = ~/.gitignore_global
 [alias]
     last = log -1 --stat
     cp = cherry-pick
@@ -16,30 +17,26 @@
     unstage = reset HEAD --
     dc = diff --cached
     d = difftool
-    gr = log --graph --oneline --decorate
-    lg = log --graph --color --decorate --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Cgreen(%cd) %C(bold blue)<%an>%Cred|' --abbrev-commit
-
-[difftool "sourcetree"]
-	cmd = '' \"$LOCAL\" \"$REMOTE\"
-[mergetool "sourcetree"]
-	cmd = "'' "
-	trustExitCode = true
-
+    gr = log -50 --graph --oneline --decorate
+    lg = log -50 --graph --color --decorate --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Cgreen(%cd) %C(bold blue)<%an>%Cred|' --abbrev-commit
+[i18n]
+    commitencoding = utf-8
+    logoutputencoding = utf-8
 [diff]
     tool = bc4
 [difftool]
     prompt = false
 [difftool "bc4"]
-    cmd = BComp.exe \"$LOCAL\" \"$REMOTE\"
-
+    cmd = BComp \"$LOCAL\" \"$REMOTE\"
 [merge]
     tool = bc4
 [mergetool]
     prompt = false
 [mergetool "bc4"]
-    cmd = BComp.exe \"$LOCAL\" \"$REMOTE\" \"$BASE\" -o \"$MERGED\"
+    cmd = BComp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
     trustexitcode = true
-
-[i18n]
-    commitencoding = utf-8
-    logoutputencoding = utf-8
+[difftool "sourcetree"]
+    cmd = BComp \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+    cmd = BComp \"$LOCAL\" \"$REMOTE\" \"$BASE\" -o \"$MERGED\"
+    trustExitCode = true
