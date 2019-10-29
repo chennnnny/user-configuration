@@ -16,6 +16,7 @@ choco install picpick.portable -y
 choco install potplayer -y
 
 :: unimportance
+REM choco install github-desktop -y
 REM choco install filezilla -y
 REM choco install filezilla.server -y
 
