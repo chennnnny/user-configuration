@@ -35,12 +35,6 @@ scoop install cscope
 REM scoop install vscode
 REM scoop install nodejs-lts
 
-:: unimportance
-::
-
-:: Hyper is an Electron-based Terminal
-REM scoop install hyper
-
 :: Multi-connection downloads with aria2
 REM scoop install aria2
 

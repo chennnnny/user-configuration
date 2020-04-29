@@ -6,12 +6,17 @@ choco install notepadplusplus.install --ia "'/D=d:\choco_apps\notepad++'" -y
 choco install vcredist2010 -y
 choco install powershell -y
 
-choco install fluent-terminal -y
 choco install f.lux.portable -y
 choco install picpick.portable -y
 
 :: media
 choco install potplayer -y
+
+:: Terminal Emulator
+choco install microsoft-windows-terminal -y
+choco install fluent-terminal -y
+choco install terminus -y
+choco install hyper -y
 
 :: unimportance
 REM choco install github-desktop -y
