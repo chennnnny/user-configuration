@@ -5,7 +5,6 @@
     autocrlf = true
     safecrlf = true
     quotepath = false
-    excludesfile = ~/.gitignore_global
 [alias]
     last = log -1 --stat
     cp = cherry-pick
@@ -17,8 +16,8 @@
     unstage = reset HEAD --
     dc = diff --cached
     d = difftool
-    gr = log -50 --graph --oneline --decorate
-    lg = log -50 --graph --color --decorate --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Cgreen(%cd) %C(bold blue)<%an>%Cred|' --abbrev-commit
+    gr = log --graph --oneline --decorate
+    lg = log --graph --color --decorate --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Cgreen(%cd) %C(bold blue)<%an>%Cred|' --abbrev-commit
 [i18n]
     commitencoding = utf-8
     logoutputencoding = utf-8
